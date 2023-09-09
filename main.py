@@ -10,6 +10,7 @@ import requests
 config_ini = configparser.ConfigParser()
 config_ini.read('config.ini', encoding='utf-8')
 token = config_ini.get('KEY', 'token')
+servername = config_ini.get('SERVERNAME', 'servername')
 
 #intents設定
 intents = discord.Intents.default()
@@ -37,9 +38,9 @@ def main():
         result = r.json()
         if result["online"] == True:
             if int(result["players"]["online"]) == 0:
-                await bot.change_presence(status=discord.Status.idle,activity=discord.Game(str(result["players"]["online"]) + "人がバニラ鯖"))
+                await bot.change_presence(status=discord.Status.idle,activity=discord.Game(str(result["players"]["online"]) + "人が" + servername))
             else:
-                await bot.change_presence(status=discord.Status.online,activity=discord.Game(str(result["players"]["online"]) + "人がバニラ鯖"))
+                await bot.change_presence(status=discord.Status.online,activity=discord.Game(str(result["players"]["online"]) + "人が" + servername))
         else:
             await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("オフライン状態"))
 
