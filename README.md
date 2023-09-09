@@ -1,6 +1,6 @@
 # MInecraftServerStatus-DiscordBOT
 
-これはMinecraftサーバの状態を確認するサービス[Minecraft Server Status](https://mcstatus.io/)をDiscord上で簡単にするためのDiscord Botです<br>
+これはMinecraftサーバの状態を確認するサービス[Minecraft Server Status](https://mcstatus.io/)で取得したサーバ状態をDiscord上で簡単に確認するためのDiscord Botです<br>
 ※本スクリプトは個人利用レベルのものであり、第三者による利用を深く想定していません。予めご了承ください
 
 ## 機能
