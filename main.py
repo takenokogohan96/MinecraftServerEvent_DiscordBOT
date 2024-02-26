@@ -10,7 +10,7 @@ import requests
 config_ini = configparser.ConfigParser()
 config_ini.read('config.ini', encoding='utf-8')
 token = config_ini.get('DISCORD', 'token')
-channelid = config_ini.get('DISCORD', 'channelid ')
+channelid = int(config_ini.get('DISCORD', 'channelid'))
 address = config_ini.get('MINECRAFT', 'address')
 servername = config_ini.get('MINECRAFT', 'servername')
 
@@ -18,6 +18,9 @@ servername = config_ini.get('MINECRAFT', 'servername')
 intents = discord.Intents.default()
 intents.message_content = True
 bot = discord.Client(intents=intents)
+
+#チェック項目
+lasttime_onlinestatus = False
 
 def main():
 
@@ -35,8 +38,13 @@ def main():
 
     @tasks.loop(seconds=10)
     async def server_status_inquiry(requestURL,parameter):
+
+        global lasttime_onlinestatus
+
         r = requests.get(requestURL, params=parameter)
         result = r.json()
+
+        #ステータス表示更新部
         if result["online"] == True:
             if int(result["players"]["online"]) == 0:
                 await bot.change_presence(status=discord.Status.idle,activity=discord.Game(str(result["players"]["online"]) + "人が" + servername))
@@ -44,6 +52,15 @@ def main():
                 await bot.change_presence(status=discord.Status.online,activity=discord.Game(str(result["players"]["online"]) + "人が" + servername))
         else:
             await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("オフライン状態"))
+
+        #ステータス更新通知
+        channel = bot.get_channel(channelid)
+        if lasttime_onlinestatus == False and result["online"] == True:
+            await channel.send("ステータス更新：オンライン✅")
+        elif lasttime_onlinestatus == True and result["online"] == False:
+            await channel.send("ステータス更新：オフライン❌")
+
+        lasttime_onlinestatus = result["online"]
 
     bot.run(token)
 
