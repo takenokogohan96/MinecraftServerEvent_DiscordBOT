@@ -1,39 +1,29 @@
-# MinecraftServerStatus-DiscordBOT
+# MinecraftServerEvent_DiscordBOT
 
-これはMinecraftサーバの状態を確認するサービス[Minecraft Server Status](https://mcstatus.io/)で取得したサーバ状態をDiscord上で簡単に確認するためのDiscord Botです<br>
-※本スクリプトは個人利用レベルのものであり、第三者による利用を深く想定していません。予めご了承ください
+これはMinecraftサーバのステータス変化や、プレイヤーの出入りをDiscordで通知するDiscord Botです<br>
 
 ## 機能
-* Minecraftの簡易的な状態を、BOTのステータス欄に表示します<br>
-（Minecraft Server Statusの仕様上、1分程度のレイテンシがあります）
+* Minecraftサーバのステータスを、BOTのステータス欄に表示する<br>
+* Minecraftサーバのステータスが変化したとき、チャンネルにメッセージを送信する（実装中）<br>
+* Minecraftサーバでプレイヤーの出入りがあったとき、チャンネルにメッセージを送信する（実装中）<br>
 
 ## 動作デモ
 ![Demo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExejV3NzF6YW02cG1xdjAxOWxrMTdkbHloazRjdjM3OWwzdnUzaGZjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Fg5UQcLMqNneLgZtWH/giphy.gif)
 
-| Botステータス | サーバの状態 |
+| 表示 | サーバの状態 |
 | --- | --- |
-| オンライン（🟢） | 稼働中（参加者1人以上） | 
-| 取り込み中（🟡） | 稼働中（参加者0人）　| 
-| 退席中（🔴） | オフライン |
+| 🟢 | 稼働中（参加者1人以上） | 
+| 🟡 | 稼働中（参加者0人）　| 
+| 🔴 | オフライン |
 
 ## セットアップと起動
-※python、Discord.pyの導入などは割愛
+※予めpython、Discord.pyを導入すること
 
 1. 当リポジトリから`main.py`と`config.ini`をDLし、同じ階層にまとめる
-1. `config.ini`にDiscoed botトークンと監視対象のMinecraftサーバ、サーバ名をセットする
+1. `config.ini`にDiscoed botトークンと監視対象のMinecraftサーバアドレス、通知したいチャンネルIDをセットする
 1. main.pyを叩く
 
 ## サーバへの招待と使い方
 
-1. 機能を利用したいサーバへbotを招待します
-    * discord developer portalでOAuth2 URL Generatorを使用し招待します<br>
-    このとき、**スコープは「bot」を指定してください**
-1. Botのステータスにサーバの状態が表示されます
-
-## 使用している主なライブラリなど
-
-Discord.py<br>
-https://discordpy.readthedocs.io/ja/latest/
-
-Minecraft Server Status API<br>
-https://mcstatus.io/docs
+1. Discord developer portalでOAuth2 URL Generatorを使用し招待する（スコープは「bot」を指定）
+1. Botのステータスが表示され、チャンネルへメッセージが送信されることを確認する
