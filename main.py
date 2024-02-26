@@ -9,8 +9,10 @@ import requests
 #config.ini読み出し
 config_ini = configparser.ConfigParser()
 config_ini.read('config.ini', encoding='utf-8')
-token = config_ini.get('KEY', 'token')
-servername = config_ini.get('SERVERNAME', 'servername')
+token = config_ini.get('DISCORD', 'token')
+channelid = config_ini.get('DISCORD', 'channelid ')
+address = config_ini.get('MINECRAFT', 'address')
+servername = config_ini.get('MINECRAFT', 'servername')
 
 #intents設定
 intents = discord.Intents.default()
@@ -27,10 +29,9 @@ def main():
         print(dt_now.strftime('[%m/%d %H:%M] ') + bot.user.name + 'ID:' + str(bot.user.id))
         print(dt_now.strftime('[%m/%d %H:%M] ') + bot.user.name + 'Logged in as\n')
         await bot.change_presence(activity=discord.Game("ステータス取得中…"))
-        address = config_ini.get('ADDRESS', 'address')
-        address = "https://api.mcstatus.io/v2/status/java/" + address
+        requestURL = "https://api.mcstatus.io/v2/status/java/" + address
         parameter = {"query":"false", "timeout":"5.0"}
-        server_status_inquiry.start(address,parameter)
+        server_status_inquiry.start(requestURL,parameter)
 
     @tasks.loop(seconds=10)
     async def server_status_inquiry(requestURL,parameter):
