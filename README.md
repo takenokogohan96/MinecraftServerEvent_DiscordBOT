@@ -4,17 +4,22 @@
 
 ## 機能
 * Minecraftサーバのステータスを、BOTのステータス欄に表示する<br>
-* Minecraftサーバのステータスが変化したとき、チャンネルにメッセージを送信する（実装中）<br>
+* Minecraftサーバのステータスが変化したとき、チャンネルにメッセージを送信する<br>
 * Minecraftサーバでプレイヤーの出入りがあったとき、チャンネルにメッセージを送信する（実装中）<br>
 
 ## 動作デモ
-![Demo](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExejV3NzF6YW02cG1xdjAxOWxrMTdkbHloazRjdjM3OWwzdnUzaGZjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Fg5UQcLMqNneLgZtWH/giphy.gif)
+### BOTステータス欄
+![Demo1](https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExejV3NzF6YW02cG1xdjAxOWxrMTdkbHloazRjdjM3OWwzdnUzaGZjNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/Fg5UQcLMqNneLgZtWH/giphy.gif)
 
 | 表示 | サーバの状態 |
 | --- | --- |
 | 🟢 | 稼働中（参加者1人以上） | 
 | 🟡 | 稼働中（参加者0人）　| 
 | 🔴 | オフライン |
+
+### ステータス変化時チャンネル通知
+
+![Demo2](https://i.imgur.com/b7cMhdW.png)
 
 ## セットアップと起動
 ※予めpython、Discord.pyを導入すること
