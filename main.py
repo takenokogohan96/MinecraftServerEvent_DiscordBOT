@@ -21,6 +21,7 @@ bot = discord.Client(intents=intents)
 
 #チェック項目
 lasttime_onlinestatus = False
+lasttime_playerlist = []
 
 def main():
 
@@ -40,6 +41,8 @@ def main():
     async def server_status_inquiry(requestURL,parameter):
 
         global lasttime_onlinestatus
+        global lasttime_playerlist
+        channel = bot.get_channel(channelid)
 
         r = requests.get(requestURL, params=parameter)
         result = r.json()
@@ -54,13 +57,31 @@ def main():
             await bot.change_presence(status=discord.Status.dnd,activity=discord.Game("オフライン状態"))
 
         #ステータス更新通知
-        channel = bot.get_channel(channelid)
         if lasttime_onlinestatus == False and result["online"] == True:
             await channel.send("ステータス更新：オンライン✅")
         elif lasttime_onlinestatus == True and result["online"] == False:
             await channel.send("ステータス更新：オフライン❌")
 
         lasttime_onlinestatus = result["online"]
+
+        #プレイヤー入退室通知
+        playerlist = []
+        for i in range(len(result["players"]["list"])):
+            playerlist.append(result["players"]["list"][i]["name_raw"])
+
+        if playerlist != lasttime_playerlist:
+
+            #ログアウト
+            leaving_playerlist = list(set(lasttime_playerlist) - set(playerlist))
+            if leaving_playerlist != []:
+                await channel.send("ログアウト："+",".join(leaving_playerlist)+"👋")
+                
+            #ログイン
+            entering_playerlist = list(set(playerlist) - set(lasttime_playerlist))
+            if entering_playerlist != []:
+                await channel.send("ログイン："+",".join(entering_playerlist)+"🖖")
+
+        lasttime_playerlist = playerlist
 
     bot.run(token)
 
