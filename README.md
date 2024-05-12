@@ -1,4 +1,4 @@
-# MinecraftServerEvent_DiscordBOT
+# Discord_MinecraftServerEventBOT
 
 これはMinecraftサーバのステータス変化や、プレイヤーの出入りをDiscordで通知するDiscord Botです<br>
 
